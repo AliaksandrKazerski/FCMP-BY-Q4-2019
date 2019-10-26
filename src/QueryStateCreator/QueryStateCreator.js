@@ -1,25 +1,38 @@
-export default class QueryState {
-  constructor(app, config = {}) {
+import { ZERO_POSITION, FIRST_POSITION, JOIN_STRING} from './constants';
+
+export default class QueryStateCreator {
+  constructor(app, newsCreator, config = {}) {
     this.app = app;
+    this.newsCreator = newsCreator;
     this.config = config;
     this.changeQuery = this.changeQuery.bind(this);
   }
 
   changeQuery(e) {
+    const category = e.target.dataset.category;
     this.changeConfig(e);
-    const query = this.createNewQuery();
-    
-    this.app.getNews(query);
+    if (this.config[category].length === 0) {
+      this.newsCreator.deleteNews();
+    } else {
+      this.app.getNews(this.createNewQuery());
+    }
   }
 
   changeConfig(e) {
     const category = e.target.dataset.category;
-    this.config[category] = [];
-    const position = this.config[category].indexOf(e.target.innerText)
-    if (position < 0) {
-      this.config[category].push(e.target.innerText);
+    
+    if (!this.config[category]) {
+      this.config[category] = [];
+    }
+    if (this.config[category].length > 0) {
+      if (this.config[category][0] === e.target.innerText) {
+        this.config[category].pop();
+      } else {
+        this.config[category].pop();
+        this.config[category].push(e.target.innerText);
+      }
     } else {
-      this.config[category].splice(position, 1);
+      this.config[category].push(e.target.innerText);
     }
   }
 

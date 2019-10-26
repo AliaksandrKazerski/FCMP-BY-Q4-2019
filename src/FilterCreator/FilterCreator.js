@@ -1,13 +1,16 @@
+import { UL, LI, CLICK_EVENT, DATA_ATRIBUTE } from './constants';
+
 export default class FilterCreator {
-  constructor (state) {
+  constructor (state, app) {
     this.state = state;
+    this.app = app;
     this.elements = [];
     this.ul = null;
   }
   
-  createFilters(filters, category, filterClass) {
+  createFilters(filters, category) {
     this.ul = document.createElement('ul');
-    this.ul.classList.add(filterClass);
+    this.ul.classList.add(category);
     filters
       .map(filter => this.createFilter(filter, category))
       .forEach(element => this.ul.appendChild(element));
@@ -25,7 +28,18 @@ export default class FilterCreator {
 
   removeFilters() {
     debugger;
-    this.elements.forEach(element => element.removeEventListener('onclick', this.state.changeQuery));
+    this.elements.forEach(element => element.removeEventListener('click', this.state.changeQuery));
     this.ul.remove();
+  }
+
+  async filterInitialization(category) {
+    try {
+      const newsObject = await this.app.getNews();
+      const categorys = newsObject
+        .map(news => news[category]);
+      this.createFilters([...new Set(categorys)], category);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
