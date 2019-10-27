@@ -7,6 +7,7 @@ export default class NewsApp {
 	
 	async getNews(query = '') {
 		try {
+			console.log(`${URL}${query}${API_KEY}`);
 			const response = await fetch(`${URL}${query}${API_KEY}`);
 			const data = await response.json();
 			if (query) {

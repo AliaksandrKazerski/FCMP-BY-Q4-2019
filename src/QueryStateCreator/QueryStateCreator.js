@@ -13,9 +13,8 @@ export default class QueryStateCreator {
     this.changeConfig(e);
     if (this.config[category].length === ZERO_POSITION) {
       this.newsCreator.deleteNews();
-    } else {
-      this.app.getNews(this.createNewQuery());
     }
+    this.app.getNews(this.createNewQuery());
   }
 
   changeConfig(e) {
@@ -34,6 +33,7 @@ export default class QueryStateCreator {
     } else {
       this.config[category].push(e.target.innerText);
     }
+    console.log(this.config);
   }
 
   createNewQuery() {
