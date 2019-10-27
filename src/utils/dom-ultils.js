@@ -5,4 +5,3 @@ export function createElement(el) {
 export function addClass(el, elementClass) {
   el.classList.add(elementClass);
 }
-
