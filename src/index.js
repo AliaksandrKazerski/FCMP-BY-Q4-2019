@@ -16,6 +16,6 @@ const newsApp = new NewsApp(newsCreator);
 const queryStateCreator = new QueryStateCreator(newsApp, newsCreator);
 
 const filterCreator = new FilterCreator(queryStateCreator, newsApp);
-filterCreator.filterInitialization(FILTERS_CATEGORY.CATEGORY);
-filterCreator.filterInitialization(FILTERS_CATEGORY.LANGUAGE);
-filterCreator.filterInitialization(FILTERS_CATEGORY.COUNTRY);
+filterCreator.getFilterInitialization(FILTERS_CATEGORY.CATEGORY);
+filterCreator.getFilterInitialization(FILTERS_CATEGORY.LANGUAGE);
+filterCreator.getFilterInitialization(FILTERS_CATEGORY.COUNTRY);

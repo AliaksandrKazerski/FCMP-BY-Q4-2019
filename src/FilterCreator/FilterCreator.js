@@ -1,4 +1,4 @@
-import { UL, LI, CLICK_EVENT, DATA_ATRIBUTE } from './constants';
+import { UL, LI, CLICK_EVENT, DATA_ATTRIBUTE } from './constants';
 
 export default class FilterCreator {
   constructor (state, app) {
@@ -6,10 +6,12 @@ export default class FilterCreator {
     this.app = app;
     this.elements = [];
     this.ul = null;
+    this.state.changeQuery = this.state.changeQuery.bind(this.state);
+    this.changeFocusClass = this.changeFocusClass.bind(this);
   }
   
   createFilters(filters, category) {
-    this.ul = document.createElement('ul');
+    this.ul = document.createElement(UL);
     this.ul.classList.add(category);
     filters
       .map(filter => this.createFilter(filter, category))
@@ -18,21 +20,26 @@ export default class FilterCreator {
   }
 
   createFilter(filter, category) {
-    const element = document.createElement('li');
+    const element = document.createElement(LI);
     element.innerText = filter;
-    element.setAttribute('data-category', category);
-    element.addEventListener('click', this.state.changeQuery);
+    element.setAttribute(DATA_ATTRIBUTE, category);
+    element.addEventListener(CLICK_EVENT, this.state.changeQuery);
+    element.addEventListener(CLICK_EVENT, this.changeFocusClass);
     this.elements.push(element);
     return element;
   }
 
+  changeFocusClass(e) {
+    e.target.classList.toggle('focus');
+  }
+
   removeFilters() {
-    debugger;
-    this.elements.forEach(element => element.removeEventListener('click', this.state.changeQuery));
+    this.elements.forEach(element => element.removeEventListener(CLICK_EVENT, this.state.changeQuery));
+    this.elements.forEach(element => element.removeEventListener(CLICK_EVENT, this.changeFocusClass));
     this.ul.remove();
   }
 
-  async filterInitialization(category) {
+  async getFilterInitialization(category) {
     try {
       const newsObject = await this.app.getNews();
       const categorys = newsObject

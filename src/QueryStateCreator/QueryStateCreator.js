@@ -11,7 +11,7 @@ export default class QueryStateCreator {
   changeQuery(e) {
     const category = e.target.dataset.category;
     this.changeConfig(e);
-    if (this.config[category].length === 0) {
+    if (this.config[category].length === ZERO_POSITION) {
       this.newsCreator.deleteNews();
     } else {
       this.app.getNews(this.createNewQuery());
@@ -24,8 +24,8 @@ export default class QueryStateCreator {
     if (!this.config[category]) {
       this.config[category] = [];
     }
-    if (this.config[category].length > 0) {
-      if (this.config[category][0] === e.target.innerText) {
+    if (this.config[category].length > ZERO_POSITION) {
+      if (this.config[category][ZERO_POSITION] === e.target.innerText) {
         this.config[category].pop();
       } else {
         this.config[category].pop();
@@ -39,16 +39,16 @@ export default class QueryStateCreator {
   createNewQuery() {
     const categoryNames = Object.entries(this.config)
       .map((entry) => {
-        if (entry[1].length > 0) {
-          return entry[0];
+        if (entry[FIRST_POSITION].length > ZERO_POSITION) {
+          return entry[ZERO_POSITION];
         }
       })
       .filter(entry => entry !== undefined);
 
     const filtersNames = Object.entries(this.config)
       .map((entry) => {
-        if (entry[1].length > 0) {
-          return entry[1];
+        if (entry[FIRST_POSITION].length > ZERO_POSITION) {
+          return entry[FIRST_POSITION];
         }
       })
       .filter(entry => entry !== undefined);
@@ -58,6 +58,6 @@ export default class QueryStateCreator {
         return names.map(name => `${categoryNames[pos]}=${name}`)
       })
       .flat(1)
-      .join('&')}&`
+      .join(JOIN_STRING)}${JOIN_STRING}`
   }
 }
