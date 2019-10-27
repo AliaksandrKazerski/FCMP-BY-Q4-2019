@@ -1,0 +1,36 @@
+.news-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .news {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+    width: 600px;
+    border: 4px solid #20bf6b;
+
+    .url {
+      margin-top: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      text-align: center;
+      color: #494949;
+    }
+
+    div {
+      margin-top: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      text-align: center;
+      color: #494949;
+    }
+
+    &:hover {
+      border-radius: 50px;
+      border-color: #494949;
+      transition: all 0.3s ease 0s;
+    }
+  }
+}

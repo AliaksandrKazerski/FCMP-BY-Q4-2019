@@ -1,12 +1,17 @@
 import {
-  DIV, 
-  UL, 
-  LI, 
+  CLASS_WRAPPER,
+  DIV_ELEMENT,
+  H2_ELEMENT, 
+  UL_ELEMENT, 
+  LI_ELEMENT, 
   CLICK_EVENT, 
   DATA_ATTRIBUTE, 
-  CLASS_FOCUS, 
-  CLASS_FILTERS
- } from './constants';
+  CLASS_ACTIVE, 
+  CLASS_FILTERS,
+  CLASS_HEADER
+} from './constants';
+
+import { createElement, addClass } from '../utils/dom-ultils';
 
 import './FilterCreator.scss';
 
@@ -17,28 +22,37 @@ export default class FilterCreator {
     this.elements = {};
     this.wrapper = null;
     this.ul = null;
+
     this.state.changeQuery = this.state.changeQuery.bind(this.state);
-    this.changeFocusClass = this.changeFocusClass.bind(this);
-    this.wrapper = document.createElement(DIV);
-    this.wrapper.classList.add(CLASS_FILTERS);
+    this.changeActiveClass = this.changeActiveClass.bind(this);
+
+    this.wrapper = createElement(DIV_ELEMENT);
+    addClass(this.wrapper, CLASS_FILTERS);
     document.body.appendChild(this.wrapper);
   }
   
   createFilters(filters, category) {
-    this.ul = document.createElement(UL);
-    this.ul.classList.add(category);
+    const filterWrapper = createElement(DIV_ELEMENT);
+    addClass(filterWrapper, CLASS_WRAPPER);
+    const header = createElement(H2_ELEMENT);
+    addClass(header, CLASS_HEADER);
+    header.innerText = category;
+    filterWrapper.appendChild(header);
+    this.ul = createElement(UL_ELEMENT);
+    addClass(this.ul, category);
     filters
       .map(filter => this.createFilter(filter, category))
       .forEach(element => this.ul.appendChild(element));
-    this.wrapper.appendChild(this.ul); 
+    filterWrapper.appendChild(this.ul)
+    this.wrapper.appendChild(filterWrapper); 
   }
 
   createFilter(filter, category) {
-    const element = document.createElement(LI);
+    const element = createElement(LI_ELEMENT);
     element.innerText = filter;
     element.setAttribute(DATA_ATTRIBUTE, category);
     element.addEventListener(CLICK_EVENT, this.state.changeQuery);
-    element.addEventListener(CLICK_EVENT, this.changeFocusClass);
+    element.addEventListener(CLICK_EVENT, this.changeActiveClass);
     if (!this.elements[category]) {
       this.elements[category] = [];
     }
@@ -46,12 +60,12 @@ export default class FilterCreator {
     return element;
   }
 
-  changeFocusClass(e) {
+  changeActiveClass(e) {
     const category = e.target.dataset.category;
-    e.target.classList.toggle(CLASS_FOCUS);
+    e.target.classList.toggle(CLASS_ACTIVE);
     this.elements[category].forEach(element => {
       if (element !== e.target) {
-        element.classList.remove(CLASS_FOCUS);
+        element.classList.remove(CLASS_ACTIVE);
       }
     });
   }
@@ -59,7 +73,7 @@ export default class FilterCreator {
   removeFilters() {
     for (category in this.elements) {
       this.elements[category].forEach(element => element.removeEventListener(CLICK_EVENT, this.state.changeQuery));
-      this.elements[category].forEach(element => element.removeEventListener(CLICK_EVENT, this.changeFocusClass));
+      this.elements[category].forEach(element => element.removeEventListener(CLICK_EVENT, this.changeActiveClass));
     }
     this.ul.remove();
   }

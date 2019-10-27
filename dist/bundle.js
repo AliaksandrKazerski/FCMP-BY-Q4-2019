@@ -9510,10 +9510,21 @@ module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/cor
 
 /***/ }),
 
-/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js?!./src/scss/main.scss":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./src/scss/main.scss ***!
-  \***********************************************************************************************************************************************************************************/
+/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js?!./src/FilterCreator/FilterCreator.scss":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./src/FilterCreator/FilterCreator.scss ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js?!./src/NewsCreator/NewsCreator.scss":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./src/NewsCreator/NewsCreator.scss ***!
+  \*************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10562,6 +10573,9 @@ module.exports = function (list, options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FilterCreator; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/FilterCreator/constants.js");
+/* harmony import */ var _utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/dom-ultils */ "./src/utils/dom-ultils.js");
+/* harmony import */ var _FilterCreator_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FilterCreator.scss */ "./src/FilterCreator/FilterCreator.scss");
+/* harmony import */ var _FilterCreator_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_FilterCreator_scss__WEBPACK_IMPORTED_MODULE_2__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -10582,6 +10596,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
+
 var FilterCreator =
 /*#__PURE__*/
 function () {
@@ -10590,10 +10606,14 @@ function () {
 
     this.state = state;
     this.app = app;
-    this.elements = [];
+    this.elements = {};
+    this.wrapper = null;
     this.ul = null;
     this.state.changeQuery = this.state.changeQuery.bind(this.state);
-    this.changeFocusClass = this.changeFocusClass.bind(this);
+    this.changeActiveClass = this.changeActiveClass.bind(this);
+    this.wrapper = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV_ELEMENT"]);
+    Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(this.wrapper, _constants__WEBPACK_IMPORTED_MODULE_0__["CLASS_FILTERS"]);
+    document.body.appendChild(this.wrapper);
   }
 
   _createClass(FilterCreator, [{
@@ -10601,42 +10621,63 @@ function () {
     value: function createFilters(filters, category) {
       var _this = this;
 
-      this.ul = document.createElement(_constants__WEBPACK_IMPORTED_MODULE_0__["UL"]);
-      this.ul.classList.add(category);
+      var filterWrapper = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV_ELEMENT"]);
+      Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(filterWrapper, _constants__WEBPACK_IMPORTED_MODULE_0__["CLASS_WRAPPER"]);
+      var header = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["H2_ELEMENT"]);
+      Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(header, _constants__WEBPACK_IMPORTED_MODULE_0__["CLASS_HEADER"]);
+      header.innerText = category;
+      filterWrapper.appendChild(header);
+      this.ul = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["UL_ELEMENT"]);
+      Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(this.ul, category);
       filters.map(function (filter) {
         return _this.createFilter(filter, category);
       }).forEach(function (element) {
         return _this.ul.appendChild(element);
       });
-      document.body.appendChild(this.ul);
+      filterWrapper.appendChild(this.ul);
+      this.wrapper.appendChild(filterWrapper);
     }
   }, {
     key: "createFilter",
     value: function createFilter(filter, category) {
-      var element = document.createElement(_constants__WEBPACK_IMPORTED_MODULE_0__["LI"]);
+      var element = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["LI_ELEMENT"]);
       element.innerText = filter;
       element.setAttribute(_constants__WEBPACK_IMPORTED_MODULE_0__["DATA_ATTRIBUTE"], category);
       element.addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], this.state.changeQuery);
-      element.addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], this.changeFocusClass);
-      this.elements.push(element);
+      element.addEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], this.changeActiveClass);
+
+      if (!this.elements[category]) {
+        this.elements[category] = [];
+      }
+
+      this.elements[category].push(element);
       return element;
     }
   }, {
-    key: "changeFocusClass",
-    value: function changeFocusClass(e) {
-      e.target.classList.toggle(_constants__WEBPACK_IMPORTED_MODULE_0__["CLASS_FOCUS"]);
+    key: "changeActiveClass",
+    value: function changeActiveClass(e) {
+      var category = e.target.dataset.category;
+      e.target.classList.toggle(_constants__WEBPACK_IMPORTED_MODULE_0__["CLASS_ACTIVE"]);
+      this.elements[category].forEach(function (element) {
+        if (element !== e.target) {
+          element.classList.remove(_constants__WEBPACK_IMPORTED_MODULE_0__["CLASS_ACTIVE"]);
+        }
+      });
     }
   }, {
     key: "removeFilters",
     value: function removeFilters() {
       var _this2 = this;
 
-      this.elements.forEach(function (element) {
-        return element.removeEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], _this2.state.changeQuery);
-      });
-      this.elements.forEach(function (element) {
-        return element.removeEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], _this2.changeFocusClass);
-      });
+      for (category in this.elements) {
+        this.elements[category].forEach(function (element) {
+          return element.removeEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], _this2.state.changeQuery);
+        });
+        this.elements[category].forEach(function (element) {
+          return element.removeEventListener(_constants__WEBPACK_IMPORTED_MODULE_0__["CLICK_EVENT"], _this2.changeActiveClass);
+        });
+      }
+
       this.ul.remove();
     }
   }, {
@@ -10691,25 +10732,62 @@ function () {
 
 /***/ }),
 
+/***/ "./src/FilterCreator/FilterCreator.scss":
+/*!**********************************************!*\
+  !*** ./src/FilterCreator/FilterCreator.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??ref--6-2!../../node_modules/sass-loader/dist/cjs.js??ref--6-3!./FilterCreator.scss */ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js?!./src/FilterCreator/FilterCreator.scss");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+
+/***/ }),
+
 /***/ "./src/FilterCreator/constants.js":
 /*!****************************************!*\
   !*** ./src/FilterCreator/constants.js ***!
   \****************************************/
-/*! exports provided: UL, LI, CLICK_EVENT, DATA_ATTRIBUTE, CLASS_FOCUS */
+/*! exports provided: DIV_ELEMENT, H2_ELEMENT, UL_ELEMENT, LI_ELEMENT, CLASS_WRAPPER, CLICK_EVENT, DATA_ATTRIBUTE, CLASS_ACTIVE, CLASS_FILTERS, CLASS_HEADER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UL", function() { return UL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LI", function() { return LI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DIV_ELEMENT", function() { return DIV_ELEMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "H2_ELEMENT", function() { return H2_ELEMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UL_ELEMENT", function() { return UL_ELEMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LI_ELEMENT", function() { return LI_ELEMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_WRAPPER", function() { return CLASS_WRAPPER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLICK_EVENT", function() { return CLICK_EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DATA_ATTRIBUTE", function() { return DATA_ATTRIBUTE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_FOCUS", function() { return CLASS_FOCUS; });
-var UL = 'ul';
-var LI = 'li';
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_ACTIVE", function() { return CLASS_ACTIVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_FILTERS", function() { return CLASS_FILTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLASS_HEADER", function() { return CLASS_HEADER; });
+var DIV_ELEMENT = 'div';
+var H2_ELEMENT = 'h2';
+var UL_ELEMENT = 'ul';
+var LI_ELEMENT = 'li';
+var CLASS_WRAPPER = 'wrapper';
 var CLICK_EVENT = 'click';
 var DATA_ATTRIBUTE = 'data-category';
-var CLASS_FOCUS = 'focus';
+var CLASS_ACTIVE = 'active';
+var CLASS_FILTERS = 'filters';
+var CLASS_HEADER = 'header';
 
 /***/ }),
 
@@ -10843,11 +10921,16 @@ var API_KEY = "apiKey=c8be5c2d059540f09abe3ef3d55afcb0";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NewsCreator; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/NewsCreator/constants.js");
+/* harmony import */ var _utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/dom-ultils */ "./src/utils/dom-ultils.js");
+/* harmony import */ var _NewsCreator_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NewsCreator.scss */ "./src/NewsCreator/NewsCreator.scss");
+/* harmony import */ var _NewsCreator_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_NewsCreator_scss__WEBPACK_IMPORTED_MODULE_2__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
 
 
 
@@ -10869,8 +10952,8 @@ function () {
         this.div.remove();
       }
 
-      this.div = document.createElement(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV"]);
-      this.div.classList.add(_constants__WEBPACK_IMPORTED_MODULE_0__["BLOCK_CLASS_NAME"]);
+      this.div = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV_ELEMENT"]);
+      Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(this.div, _constants__WEBPACK_IMPORTED_MODULE_0__["BLOCK_CLASS_NAME"]);
       newsObject.forEach(function (news) {
         return _this.createNewsElement(news);
       });
@@ -10879,14 +10962,23 @@ function () {
   }, {
     key: "createNewsElement",
     value: function createNewsElement(news) {
-      var newsElement = document.createElement(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV"]);
-      newsElement.classList.add(_constants__WEBPACK_IMPORTED_MODULE_0__["NEWS_CLASS_NAME"]);
+      var newsElement = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV_ELEMENT"]);
+      Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(newsElement, _constants__WEBPACK_IMPORTED_MODULE_0__["NEWS_CLASS_NAME"]);
 
       for (var key in news) {
-        var newsElementField = document.createElement(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV"]);
-        newsElementField.classList.add(key);
-        newsElementField.innerText = news[key];
-        newsElement.appendChild(newsElementField);
+        if (key === _constants__WEBPACK_IMPORTED_MODULE_0__["URL_FIELD"]) {
+          var newsElementField = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["A_ELEMENT"]);
+          Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(newsElementField, key);
+          newsElementField.href = news[key];
+          newsElementField.innerText = news[key];
+          newsElement.appendChild(newsElementField);
+        } else {
+          var _newsElementField = Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["DIV_ELEMENT"]);
+
+          Object(_utils_dom_ultils__WEBPACK_IMPORTED_MODULE_1__["addClass"])(_newsElementField, key);
+          _newsElementField.innerText = news[key];
+          newsElement.appendChild(_newsElementField);
+        }
       }
 
       this.div.appendChild(newsElement);
@@ -10905,21 +10997,52 @@ function () {
 
 /***/ }),
 
+/***/ "./src/NewsCreator/NewsCreator.scss":
+/*!******************************************!*\
+  !*** ./src/NewsCreator/NewsCreator.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??ref--6-2!../../node_modules/sass-loader/dist/cjs.js??ref--6-3!./NewsCreator.scss */ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js?!./src/NewsCreator/NewsCreator.scss");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+
+/***/ }),
+
 /***/ "./src/NewsCreator/constants.js":
 /*!**************************************!*\
   !*** ./src/NewsCreator/constants.js ***!
   \**************************************/
-/*! exports provided: DIV, BLOCK_CLASS_NAME, NEWS_CLASS_NAME */
+/*! exports provided: A_ELEMENT, DIV_ELEMENT, BLOCK_CLASS_NAME, NEWS_CLASS_NAME, URL_FIELD */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DIV", function() { return DIV; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A_ELEMENT", function() { return A_ELEMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DIV_ELEMENT", function() { return DIV_ELEMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BLOCK_CLASS_NAME", function() { return BLOCK_CLASS_NAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEWS_CLASS_NAME", function() { return NEWS_CLASS_NAME; });
-var DIV = 'div';
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL_FIELD", function() { return URL_FIELD; });
+var A_ELEMENT = 'a';
+var DIV_ELEMENT = 'div';
 var BLOCK_CLASS_NAME = 'news-block';
 var NEWS_CLASS_NAME = 'news';
+var URL_FIELD = 'url';
 
 /***/ }),
 
@@ -10959,10 +11082,14 @@ function () {
   _createClass(QueryStateCreator, [{
     key: "changeQuery",
     value: function changeQuery(e) {
-      var category = e.target.dataset.category;
+      var countFiltersFilds = _constants__WEBPACK_IMPORTED_MODULE_0__["ZERO_COUNT"];
       this.changeConfig(e);
 
-      if (this.config[category].length === _constants__WEBPACK_IMPORTED_MODULE_0__["ZERO_POSITION"]) {
+      for (var category in this.config) {
+        countFiltersFilds += this.config[category].length;
+      }
+
+      if (!countFiltersFilds) {
         this.newsCreator.deleteNews();
       } else {
         this.app.getNews(this.createNewQuery());
@@ -11024,7 +11151,7 @@ function () {
 /*!********************************************!*\
   !*** ./src/QueryStateCreator/constants.js ***!
   \********************************************/
-/*! exports provided: ZERO_POSITION, FIRST_POSITION, JOIN_STRING */
+/*! exports provided: ZERO_POSITION, FIRST_POSITION, JOIN_STRING, ZERO_COUNT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11032,9 +11159,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZERO_POSITION", function() { return ZERO_POSITION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FIRST_POSITION", function() { return FIRST_POSITION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JOIN_STRING", function() { return JOIN_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZERO_COUNT", function() { return ZERO_COUNT; });
 var ZERO_POSITION = 0;
 var FIRST_POSITION = 1;
 var JOIN_STRING = '&';
+var ZERO_COUNT = 0;
 
 /***/ }),
 
@@ -11051,9 +11180,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FilterCreator_FilterCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterCreator/FilterCreator */ "./src/FilterCreator/FilterCreator.js");
 /* harmony import */ var _QueryStateCreator_QueryStateCreator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QueryStateCreator/QueryStateCreator */ "./src/QueryStateCreator/QueryStateCreator.js");
 /* harmony import */ var _NewsCreator_NewsCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NewsCreator/NewsCreator */ "./src/NewsCreator/NewsCreator.js");
-/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scss/main.scss */ "./src/scss/main.scss");
-/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scss_main_scss__WEBPACK_IMPORTED_MODULE_4__);
-
 
 
 
@@ -11073,30 +11199,23 @@ filterCreator.getFilterInitialization(FILTERS_CATEGORY.COUNTRY);
 
 /***/ }),
 
-/***/ "./src/scss/main.scss":
-/*!****************************!*\
-  !*** ./src/scss/main.scss ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/utils/dom-ultils.js":
+/*!*********************************!*\
+  !*** ./src/utils/dom-ultils.js ***!
+  \*********************************/
+/*! exports provided: createElement, addClass */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var content = __webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??ref--6-2!../../node_modules/sass-loader/dist/cjs.js??ref--6-3!./main.scss */ "./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js?!./src/scss/main.scss");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addClass", function() { return addClass; });
+function createElement(el) {
+  return document.createElement(el);
 }
-
-var options = {}
-
-options.insert = "head";
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
+function addClass(el, elementClass) {
+  el.classList.add(elementClass);
 }
-
 
 /***/ }),
 

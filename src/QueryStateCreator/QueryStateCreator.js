@@ -1,20 +1,26 @@
-import { ZERO_POSITION, FIRST_POSITION, JOIN_STRING} from './constants';
+import { ZERO_POSITION, FIRST_POSITION, JOIN_STRING, ZERO_COUNT} from './constants';
 
 export default class QueryStateCreator {
   constructor(app, newsCreator, config = {}) {
     this.app = app;
     this.newsCreator = newsCreator;
     this.config = config;
+
     this.changeQuery = this.changeQuery.bind(this);
   }
 
   changeQuery(e) {
-    const category = e.target.dataset.category;
+    let countFiltersFilds = ZERO_COUNT;
+
     this.changeConfig(e);
-    if (this.config[category].length === ZERO_POSITION) {
-      this.newsCreator.deleteNews();
+    for (const category in this.config) {
+      countFiltersFilds += this.config[category].length;
     }
-    this.app.getNews(this.createNewQuery());
+    if (!countFiltersFilds) {
+      this.newsCreator.deleteNews();
+    } else {
+      this.app.getNews(this.createNewQuery());
+    } 
   }
 
   changeConfig(e) {
@@ -33,7 +39,6 @@ export default class QueryStateCreator {
     } else {
       this.config[category].push(e.target.innerText);
     }
-    console.log(this.config);
   }
 
   createNewQuery() {
