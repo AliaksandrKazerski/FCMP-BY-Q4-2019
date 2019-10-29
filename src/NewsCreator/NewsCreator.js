@@ -1,14 +1,15 @@
 import {
   IMG_ELEMENT,
-  A_ELEMENT, 
-  DIV_ELEMENT, 
-  BLOCK_CLASS_NAME, 
+  A_ELEMENT,
+  DIV_ELEMENT,
+  BLOCK_CLASS_NAME,
   NEWS_CLASS_NAME,
   URL_FIELD,
   URL_TO_IMAGE,
 } from './constants';
 
-import { createElement, addClass } from '../utils/dom-ultils';
+import createElement from '../utils/dom-utils/create-element';
+import addClass from "../utils/dom-utils/add-class";
 
 import './NewsCreator.scss';
 

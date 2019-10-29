@@ -11,12 +11,13 @@ import {
   CLASS_HEADER, DATA_ENDPOINT
 } from './constants';
 
-import { createElement, addClass } from '../utils/dom-ultils';
+import createElement from '../utils/dom-utils/create-element';
+import addClass from "../utils/dom-utils/add-class";
 
 import './FilterCreator.scss';
 
 export default class FilterCreator {
-  constructor (state, app) {
+  constructor(state, app) {
     this.state = state;
     this.app = app;
     this.elements = {};
@@ -30,8 +31,19 @@ export default class FilterCreator {
     addClass(this.wrapper, CLASS_FILTERS);
     document.body.appendChild(this.wrapper);
   }
-  
-  createFilters(filters, category, endpoint) {
+
+  async getFilterInitialization(category, typeFilter) {
+    try {
+      const newsObject = await this.app.getNews(typeFilter);
+      const categorys = newsObject
+        .map(news => news[category]);
+      this.createFilters([...new Set(categorys)], category, typeFilter);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  createFilters(filters, category, typeFilter) {
     const filterWrapper = createElement(DIV_ELEMENT);
     addClass(filterWrapper, CLASS_WRAPPER);
     const header = createElement(H2_ELEMENT);
@@ -41,17 +53,17 @@ export default class FilterCreator {
     this.ul = createElement(UL_ELEMENT);
     addClass(this.ul, category);
     filters
-      .map(filter => this.createFilter(filter, category, endpoint))
+      .map(filter => this.createFilter(filter, category, typeFilter))
       .forEach(element => this.ul.appendChild(element));
     filterWrapper.appendChild(this.ul)
-    this.wrapper.appendChild(filterWrapper); 
+    this.wrapper.appendChild(filterWrapper);
   }
 
-  createFilter(filter, category, endpoint) {
+  createFilter(filter, category, typeFilter) {
     const element = createElement(LI_ELEMENT);
     element.innerText = filter;
     element.setAttribute(DATA_ATTRIBUTE, category);
-    element.setAttribute(DATA_ENDPOINT, endpoint);
+    element.setAttribute(DATA_ENDPOINT, typeFilter);
     element.addEventListener(CLICK_EVENT, this.state.changeQuery);
     element.addEventListener(CLICK_EVENT, this.changeActiveClass);
     if (!this.elements[category]) {
@@ -65,11 +77,6 @@ export default class FilterCreator {
     const category = e.target.dataset.category;
 
     e.target.classList.toggle(CLASS_ACTIVE);
-    this.elements.sources.forEach(element => {
-      if (element !== e.target) {
-        element.classList.remove(CLASS_ACTIVE);
-      }
-    });
     this.elements[category].forEach(element => {
       if (element !== e.target) {
         element.classList.remove(CLASS_ACTIVE);
@@ -83,16 +90,5 @@ export default class FilterCreator {
       this.elements[category].forEach(element => element.removeEventListener(CLICK_EVENT, this.changeActiveClass));
     }
     this.ul.remove();
-  }
-
-  async getFilterInitialization(category, endpoint) {
-    try {
-      const newsObject = await this.app.getNews(endpoint);
-      const categorys = newsObject
-        .map(news => news[category]);
-      this.createFilters([...new Set(categorys)], category, endpoint);
-    } catch (e) {
-      console.log(e);
-    }
   }
 }

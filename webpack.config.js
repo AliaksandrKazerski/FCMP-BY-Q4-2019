@@ -1,9 +1,12 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: 'development',
-  devtool: 'source-map',
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'inline-source-map' : 'source-map',
   entry: {
     app: [
       '@babel/polyfill',
@@ -28,27 +31,30 @@ module.exports = {
         MiniCssExtractPlugin.loader,
         "css-loader"
       ]
-    },{
+    }, {
       test: /\.scss?$/,
       use: [
         'style-loader',
         MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader',
-          options: { sourceMap: true }
+          options: isDevelopment ? {sourceMap: true} : {},
         }, {
           loader: 'sass-loader',
-          options: { sourceMap: true }
+          options: isDevelopment ? {sourceMap: true} : {},
         }
       ]
     }]
   },
   devServer: {
-    port: 9000
+    compress: true,
+    port: 9000,
+    open: true,
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'bundle.css',
     })
   ],
-}
+};
