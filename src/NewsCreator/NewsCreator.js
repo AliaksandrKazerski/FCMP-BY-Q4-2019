@@ -1,9 +1,11 @@
 import {
+  IMG_ELEMENT,
   A_ELEMENT, 
   DIV_ELEMENT, 
   BLOCK_CLASS_NAME, 
   NEWS_CLASS_NAME,
-  URL_FIELD
+  URL_FIELD,
+  URL_TO_IMAGE,
 } from './constants';
 
 import { createElement, addClass } from '../utils/dom-ultils';
@@ -29,7 +31,13 @@ export default class NewsCreator {
     const newsElement = createElement(DIV_ELEMENT);
     addClass(newsElement, NEWS_CLASS_NAME);
     for (const key in news) {
-      if (key === URL_FIELD) {
+      if (key === URL_TO_IMAGE) {
+        if (news[URL_TO_IMAGE]) {
+          const newsElementField = createElement(IMG_ELEMENT);
+          newsElementField.setAttribute('src', news[URL_TO_IMAGE]);
+          newsElement.appendChild(newsElementField);
+        }
+      } else if (key === URL_FIELD) {
         const newsElementField = createElement(A_ELEMENT);
         addClass(newsElementField, key);
         newsElementField.href = news[key];

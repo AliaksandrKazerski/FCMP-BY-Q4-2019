@@ -5,12 +5,14 @@ export default class NewsApp {
 		this.newsCreator = newsCreator;
 	}
 	
-	async getNews(query = '') {
+	async getNews(endpoint, query = '') {
+	  console.log(`${URL}${endpoint}${query}${API_KEY}`);
 		try {
-			const response = await fetch(`${URL}${query}${API_KEY}`);
+			const response = await fetch(`${URL}${endpoint}${query}${API_KEY}`);
 			const data = await response.json();
+			console.log(data);
 			if (query) {
-				this.newsCreator.createNews(data.sources);
+				this.newsCreator.createNews(data.sources || data.articles);
 			} else {
 				return data.sources;
 			}

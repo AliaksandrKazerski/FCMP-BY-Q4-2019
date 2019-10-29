@@ -5,6 +5,7 @@ export default class QueryStateCreator {
     this.app = app;
     this.newsCreator = newsCreator;
     this.config = config;
+    this.endpoint = null;
 
     this.changeQuery = this.changeQuery.bind(this);
   }
@@ -19,13 +20,14 @@ export default class QueryStateCreator {
     if (!countFiltersFilds) {
       this.newsCreator.deleteNews();
     } else {
-      this.app.getNews(this.createNewQuery());
+      this.app.getNews(this.endpoint, this.createNewQuery());
     } 
   }
 
   changeConfig(e) {
     const category = e.target.dataset.category;
-    
+    this.endpoint = e.target.dataset.endpoint;
+
     if (!this.config[category]) {
       this.config[category] = [];
     }
@@ -39,6 +41,8 @@ export default class QueryStateCreator {
     } else {
       this.config[category].push(e.target.innerText);
     }
+    console.log(this.endpoint);
+    console.log(this.config);
   }
 
   createNewQuery() {
@@ -63,6 +67,6 @@ export default class QueryStateCreator {
         return names.map(name => `${categoryNames[pos]}=${name}`)
       })
       .flat(1)
-      .join(JOIN_STRING)}${JOIN_STRING}`
+      .join(JOIN_STRING)}${JOIN_STRING}`.toLowerCase();
   }
 }

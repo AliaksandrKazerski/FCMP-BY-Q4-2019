@@ -5,6 +5,7 @@ export const LI_ELEMENT = 'li';
 export const CLASS_WRAPPER = 'wrapper';
 export const CLICK_EVENT ='click';
 export const DATA_ATTRIBUTE ='data-category';
+export const DATA_ENDPOINT = 'data-endpoint';
 export const CLASS_ACTIVE = 'active';
 export const CLASS_FILTERS = 'filters';
 export const CLASS_HEADER = 'header';
