@@ -19,15 +19,14 @@
     "url": "https://github.com/AliaksandrKazerski/FCMP-BY-Q4-2019.1/issues"
   },
   "homepage": "https://github.com/AliaksandrKazerski/FCMP-BY-Q4-2019.1#readme",
-  "dependencies": {
-    "clean-webpack-plugin": "^3.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-stage-0": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
