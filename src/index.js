@@ -13,4 +13,3 @@ const queryStateCreator = new QueryStateCreator(newsApp, newsCreator);
 
 const filterCreator = new FilterCreator(queryStateCreator, newsApp);
 filterCreator.createFilters(NEWS_CHANEL, FILTERS_CATEGORY.NEWS_CHANEL, TYPE_FILTER.NEWS);
-

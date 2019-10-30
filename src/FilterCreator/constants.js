@@ -9,3 +9,7 @@ export const DATA_ENDPOINT = 'data-type-filter';
 export const CLASS_ACTIVE = 'active';
 export const CLASS_FILTERS = 'filters';
 export const CLASS_HEADER = 'header';
+export const TYPE_FILTER = {
+  NEWS: 'news-portal',
+  SOURCES: 'sources',
+};

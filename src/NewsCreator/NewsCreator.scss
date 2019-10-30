@@ -11,8 +11,13 @@
     flex-direction: column;
     margin-top: 20px;
     padding: 20px;
-    width: 1400px;
+    width: 1024px;
     border: 4px solid $color_non_hover;
+
+    img {
+      height: 700px;
+      margin-top: 20px;
+    }
 
     .url {
       @include text_styles;
@@ -36,10 +41,26 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1080px) {
+  .news-block {
+    .news {
+      width: 768px;
 
+      img {
+        height: 500px;
+      }
+    }
+  }
 }
 
-@media screen and (max-width: 768px) {
-  
+@media screen and (max-width: 840px) {
+  .news-block {
+    .news {
+      width: 450px;
+
+      img {
+        height: 300px;
+      }
+    }
+  }
 }

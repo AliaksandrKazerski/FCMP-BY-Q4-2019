@@ -32,6 +32,9 @@ export default class NewsCreator {
     const newsElement = createElement(DIV_ELEMENT);
     addClass(newsElement, NEWS_CLASS_NAME);
     for (const key in news) {
+      if (typeof(news[key]) === 'object') {
+        continue;
+      }
       if (key === URL_TO_IMAGE) {
         if (news[URL_TO_IMAGE]) {
           const newsElementField = createElement(IMG_ELEMENT);

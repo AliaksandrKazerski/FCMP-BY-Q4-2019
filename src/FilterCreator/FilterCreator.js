@@ -8,7 +8,8 @@ import {
   DATA_ATTRIBUTE,
   CLASS_ACTIVE,
   CLASS_FILTERS,
-  CLASS_HEADER, DATA_ENDPOINT
+  CLASS_HEADER, DATA_ENDPOINT,
+  TYPE_FILTER,
 } from './constants';
 
 import createElement from '../utils/dom-utils/create-element';
@@ -48,7 +49,11 @@ export default class FilterCreator {
     addClass(filterWrapper, CLASS_WRAPPER);
     const header = createElement(H2_ELEMENT);
     addClass(header, CLASS_HEADER);
-    header.innerText = category;
+    if (typeFilter === TYPE_FILTER.NEWS) {
+      header.innerText = TYPE_FILTER.NEWS;
+    } else {
+      header.innerText = category;
+    }
     filterWrapper.appendChild(header);
     this.ul = createElement(UL_ELEMENT);
     addClass(this.ul, category);
