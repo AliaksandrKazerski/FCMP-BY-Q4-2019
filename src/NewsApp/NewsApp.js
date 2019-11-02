@@ -1,25 +1,30 @@
-import {URL, API_KEY, ENDPOINTS, TYPE_FILTER} from './constants'
+import NewsCreator from '../NewsCreator/NewsCreator';
+import {URL, API_KEY, ENDPOINTS} from './constants';
 
 export default class NewsApp {
   constructor(newsCreator) {
     this.newsCreator = newsCreator;
   }
 
-  async getNews(typeFilter, query = '') {
-    let endpoint;
-    if (typeFilter === TYPE_FILTER.NEWS) {
-      endpoint = ENDPOINTS.TOP_HEADLINES;
-    } else if (typeFilter === TYPE_FILTER.SOURCES) {
-      endpoint = ENDPOINTS.SOURCES;
+  static async getInitialization() {
+    try {
+      const response = await fetch(`${URL}${ENDPOINTS.SOURCES}${API_KEY}`);
+      const data = await response.json();
+      return data.sources;
+    } catch (e) {
+      console.log(e);
     }
+  }
+
+  static async getNews( query = '') {
+    const endpoint = ENDPOINTS.TOP_HEADLINES;
     try {
       const response = await fetch(`${URL}${endpoint}${query}${API_KEY}`);
       const data = await response.json();
-      if (query) {
-        this.newsCreator.createNews(data.sources || data.articles);
-      } else {
-        return data.sources;
-      }
+      const newsCreator = new NewsCreator();
+
+      newsCreator.deleteNews();
+      newsCreator.createNews(data.articles);
     } catch (e) {
       console.log(e);
     }
