@@ -1,6 +1,9 @@
 import Wrapper from './Wrapper';
 import Store from '../Store/Store';
 
+import addClass from '../utils/dom-utils/add-class';
+import createElement from '../utils/dom-utils/create-element';
+
 import {
   H2_ELEMENT, 
   CLASS_HEADER, 
@@ -16,11 +19,7 @@ import {
   DEFAULT_VALUE_SELECT,
   HEADER_ID,
   HEADER_NEWS,
-
 } from './constants';
-
-import addClass from '../utils/dom-utils/add-class';
-import createElement from '../utils/dom-utils/create-element';
 
 const store = new Store();
 

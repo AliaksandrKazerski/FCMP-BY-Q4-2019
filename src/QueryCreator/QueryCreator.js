@@ -2,7 +2,15 @@ import Store from '../Store/Store';
 import NewsApp from '../NewsApp/NewsApp';
 import ErrorMessage from '../Components/ErrorMessage';
 
-import {ZERO_POSITION, FIRST_POSITION, JOIN_STRING} from './constants';
+import {
+  ZERO_POSITION, 
+  FIRST_POSITION, 
+  JOIN_STRING,
+  CATEGORY_SOURCES,
+  CATEGORY_QUERY,
+  ERROR_MESSAGE_CHOOSE,
+  ERROR_MESSAGE_ENTER,
+} from './constants';
 
 const store = new Store;
 const errorMessage = new ErrorMessage();
@@ -12,21 +20,21 @@ export default class QueryCreator {
   static createNewQuery(e) {
     const state = store.getState();
     
-    if (e.target.dataset.category === 'sources') {
+    if (e.target.dataset.category === CATEGORY_SOURCES) {
       if (!state.sources) {
-        errorMessage.createError('please choose one of the options');
+        errorMessage.createError(ERROR_MESSAGE_CHOOSE);
       } else {
         NewsApp.getNews(`sources=${state.sources}`);
       }
-    } else if (e.target.dataset.category === 'query'){
+    } else if (e.target.dataset.category === CATEGORY_QUERY){
       if (!state.query) {
-        errorMessage.createError('please enter you request');
+        errorMessage.createError(ERROR_MESSAGE_ENTER);
       } else {
         NewsApp.getNews(`q=${state.query}`);
       }
     } else {
       if (!state.activeFilters) {
-        errorMessage.createError('please choose one of the options');
+        errorMessage.createError(ERROR_MESSAGE_CHOOSE);
       } else {
         const categoryNames = Object.entries(state.activeFilters)
       .map((entry) => {

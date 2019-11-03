@@ -1,5 +1,6 @@
 import createElement from '../utils/dom-utils/create-element';
 import addClass from '../utils/dom-utils/add-class';
+
 import {
   DIV_ELEMENT, 
   NEWS_CLASS_NAME, 

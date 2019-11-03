@@ -1,6 +1,7 @@
 import Wrapper from './Wrapper';
 
 import createElement from '../utils/dom-utils/create-element';
+
 import {DIV_ELEMENT, CLASS_ERROR, P_ELEMENT, QUERY_ERROR} from './constants';
 
 let instance = null;

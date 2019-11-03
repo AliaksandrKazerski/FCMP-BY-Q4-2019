@@ -15,11 +15,4 @@ export default class NewsCreator {
     document.body.appendChild(this.wrapper);
     newsObject.forEach(news => this.wrapper.appendChild(News.createNews(news)));
   }
-
-  deleteNews() {
-    const news = document.querySelector('.news-block');
-    if (news) {
-      document.querySelector('.news-block').remove();
-    }
-  }
 }

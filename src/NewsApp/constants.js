@@ -4,3 +4,4 @@ export const ENDPOINTS = {
   TOP_HEADLINES: 'top-headlines?',
   SOURCES: 'sources?',
 };
+export const REQUEST_GET = 'GET';

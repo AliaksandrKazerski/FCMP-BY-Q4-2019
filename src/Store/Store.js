@@ -18,6 +18,5 @@ export default class Store {
 
   changeState(fild, information) {
     this.state[fild] = information;
-    console.log(this.state)
   }
 }
