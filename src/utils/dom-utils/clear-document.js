@@ -6,7 +6,7 @@ export default function clearDocument() {
   }
 
   const news = document.querySelector('.news-block');
-  
+
   if (news) {
     news.remove();
   }
