@@ -13,6 +13,7 @@
     padding: 20px;
     width: 1024px;
     border: 4px solid $color_non_hover;
+    border-radius: 6px;
 
     img {
       height: 700px;
@@ -56,7 +57,7 @@
 @media screen and (max-width: 840px) {
   .news-block {
     .news {
-      width: 450px;
+      width: 500px;
 
       img {
         height: 300px;

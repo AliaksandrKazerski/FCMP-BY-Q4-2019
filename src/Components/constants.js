@@ -11,6 +11,7 @@ export const P_ELEMENT = 'p';
 export const CLASS_HEADER = 'header';
 export const CLASS_FILTER_WRAPPER = 'filter-wrapper';
 export const CLASS_ERROR = 'error';
+export const CLASS_FILTERS = ''
 
 export const QUERY_FIELD = 'query';
 export const URL_FIELD = 'url';
@@ -24,6 +25,7 @@ export const CHANGE_EVENT = 'change';
 export const DATA_ATTRIBUTE = 'data-category';
 export const SRC_ATTRIBUTE = 'src';
 
+export const TEXT_SEARCH = 'search';
 export const NEWS_CLASS_NAME = 'news';
 export const NEWS_CATEGORY = 'news';
 export const DEFAULT_VALUE_SELECT = '';

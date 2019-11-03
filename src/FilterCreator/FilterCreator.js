@@ -71,7 +71,7 @@ export default class FilterCreator {
     wrapperNonSourcesFilters.appendChild(Button.createButton(TEXT_GET_NEWS, CLASS_NON_SOURCES_BUTTON, ATTRIBUTE_NON_SOURCES));
     wrapperInput.appendChild(input.createInput(CLASS_INPUT_QUERY));
     wrapperInput.appendChild(Button.createButton(TEXT_GET_NEWS, CLASS_QUERY_BUTTON, ATTRIBUTE_QUERY));
-    this.wrapper.appendChild(wrapperInput);
     this.wrapper.appendChild(wrapperNonSourcesFilters);
+    this.wrapper.appendChild(wrapperInput);
   }
 }

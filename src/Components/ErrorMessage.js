@@ -4,6 +4,8 @@ import createElement from '../utils/dom-utils/create-element';
 
 import {DIV_ELEMENT, CLASS_ERROR, P_ELEMENT, QUERY_ERROR} from './constants';
 
+import './ErrorMessage.scss'
+
 let instance = null;
 
 export default class ErrorMesage {
