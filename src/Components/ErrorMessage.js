@@ -27,8 +27,8 @@ export default class ErrorMesage {
 
     errorText.innerText = message;
     wrapperError.appendChild(errorText);
-    this.log.push(message);
     document.body.appendChild(wrapperError);
+    this.log.push(message);
   }
 
   logErrors() {

@@ -25,7 +25,9 @@ import {
 
 import './FilterCreator.scss';
 
-const store = new Store;
+const store = new Store();
+const filter = new Filter();
+const input = new Input();
 
 export default class FilterCreator {
   constructor() {
@@ -51,8 +53,6 @@ export default class FilterCreator {
   createFilters() {
     const state = store.getState();
     const wrapperNonSourcesFilters = Wrapper.createWrapper(DIV_ELEMENT, CLASS_NON_SOURCES_WRAPPER);
-    const filter = new Filter();
-    const input = new Input();
 
     for (const fild in state.filters) {    
       if (fild === TYPE_FILTER[0]) {
