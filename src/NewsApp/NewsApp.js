@@ -1,4 +1,5 @@
 import NewsCreator from '../NewsCreator/NewsCreator';
+import ErrorMessage from '../Components/ErrorMessage';
 import {URL, API_KEY, ENDPOINTS} from './constants';
 
 export default class NewsApp {
@@ -12,7 +13,8 @@ export default class NewsApp {
       const data = await response.json();
       return data.sources;
     } catch (e) {
-      console.log(e);
+      const errorMessage = new ErrorMessage();
+      errorMessage.createError(e.message);
     }
   }
 
@@ -26,7 +28,8 @@ export default class NewsApp {
       newsCreator.deleteNews();
       newsCreator.createNews(data.articles);
     } catch (e) {
-      console.log(e);
+      const errorMessage = new ErrorMessage();
+      errorMessage.createError(e.message);
     }
   }
 }

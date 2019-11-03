@@ -2,6 +2,7 @@ import NewsApp from '../NewsApp/NewsApp';
 import Wrapper from '../Components/Wrapper';
 import Filter from '../Components/Filter';
 import Button from '../Components/Button';
+import Input from '../Components/Input';
 import Store from '../Store/Store';
 
 import {
@@ -13,8 +14,13 @@ import {
   CLASS_SOURCES_WRAPPER,
   CLASS_NON_SOURCES_BUTTON,
   CLASS_SOURCES_BUTTON,
-  TEXT_SORT_NEWS,
   TEXT_GET_NEWS,
+  CLASS_INPUT_QUERY,
+  CLASS_INPUT_WRAPPER,
+  ATTRIBUTE_QUERY,
+  CLASS_QUERY_BUTTON,
+  ATTRIBUTE_NON_SOURCES,
+  ATTRIBUTE_SOURCES,
 } from './constants';
 
 import './FilterCreator.scss';
@@ -46,12 +52,12 @@ export default class FilterCreator {
     const state = store.getState();
     const wrapperNonSourcesFilters = Wrapper.createWrapper(DIV_ELEMENT, CLASS_NON_SOURCES_WRAPPER);
     const filter = new Filter();
-    const buttonNonSourcesFilters = Button.createButton(TEXT_SORT_NEWS, CLASS_NON_SOURCES_BUTTON);
+    const input = new Input();
 
     for (const fild in state.filters) {    
       if (fild === TYPE_FILTER[0]) {
         const wrapperSourcesFilters = Wrapper.createWrapper(DIV_ELEMENT, CLASS_SOURCES_WRAPPER);
-        const buttonSourcesFilters = Button.createButton(TEXT_GET_NEWS, CLASS_SOURCES_BUTTON); 
+        const buttonSourcesFilters = Button.createButton(TEXT_GET_NEWS, CLASS_SOURCES_BUTTON, ATTRIBUTE_SOURCES); 
 
         wrapperSourcesFilters.appendChild(filter.createFilter(fild, state.filters[fild]));    
         wrapperSourcesFilters.appendChild(buttonSourcesFilters);
@@ -60,7 +66,12 @@ export default class FilterCreator {
         wrapperNonSourcesFilters.appendChild(filter.createFilter(fild, state.filters[fild]));
       }
     }
-    wrapperNonSourcesFilters.appendChild(buttonNonSourcesFilters);
+    const wrapperInput = Wrapper.createWrapper(DIV_ELEMENT, CLASS_INPUT_WRAPPER);
+
+    wrapperNonSourcesFilters.appendChild(Button.createButton(TEXT_GET_NEWS, CLASS_NON_SOURCES_BUTTON, ATTRIBUTE_NON_SOURCES));
+    wrapperInput.appendChild(input.createInput(CLASS_INPUT_QUERY));
+    wrapperInput.appendChild(Button.createButton(TEXT_GET_NEWS, CLASS_QUERY_BUTTON, ATTRIBUTE_QUERY));
+    this.wrapper.appendChild(wrapperInput);
     this.wrapper.appendChild(wrapperNonSourcesFilters);
   }
 }
