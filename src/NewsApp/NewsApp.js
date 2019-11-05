@@ -1,11 +1,10 @@
 import NewsCreator from '../NewsCreator/NewsCreator';
-import ErrorMessage from '../Components/ErrorMessage';
+import renderError from '../utils/render/render-error';
 
 import requestPreparation from '../utils/request-utils/request-preparation';
 
 import {URL, API_KEY, ENDPOINTS, REQUEST_GET} from './constants';
 
-const errorMessage = new ErrorMessage();
 const newsCreator = new NewsCreator();
 
 export default class NewsApp {
@@ -16,7 +15,7 @@ export default class NewsApp {
 
       return data.sources;
     } catch (e) {
-      errorMessage.createError(e.message);
+      renderError(e.message);
     }
   }
 
@@ -27,7 +26,7 @@ export default class NewsApp {
 
       newsCreator.createNews(data.articles);
     } catch (e) {
-      errorMessage.createError(e.message);
+      renderError(e.message);
     }
   }
 }

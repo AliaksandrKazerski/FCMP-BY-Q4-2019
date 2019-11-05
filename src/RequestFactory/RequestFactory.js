@@ -13,7 +13,7 @@ class RequestPOST {
     this.data = data;
   }
   getRequest() {
-    return fetch(url, {
+    return fetch(this.url, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -23,7 +23,7 @@ class RequestPOST {
       },
       redirect: 'follow',
       referrer: 'no-referrer',
-      body: JSON.stringify(data)
+      body: JSON.stringify(this.data)
     });
   }
 }
@@ -34,7 +34,7 @@ class RequestPUT {
     this.data = data;
   }
   getRequest() {
-    return fetch(url, {
+    return fetch(this.url, {
       method: 'PUT',
       mode: 'cors',
       cache: 'no-cache',
@@ -44,7 +44,7 @@ class RequestPUT {
       },
       redirect: 'follow',
       referrer: 'no-referrer',
-      body: JSON.stringify(data)
+      body: JSON.stringify(this.data)
     });
   }
 }
@@ -54,7 +54,7 @@ class RequestDELETE {
     this.url = url;
   }
   getRequest() {
-    return fetch(url, {
+    return fetch(this.url, {
       method: 'DELETE',
     });
   }
