@@ -1,6 +1,6 @@
 import Store from '../Store/Store';
 import NewsApp from '../NewsApp/NewsApp';
-import ErrorMessage from '../Components/ErrorMessage';
+import renderError from '../utils/render/render-error';
 
 import {
   ZERO_POSITION, 
@@ -13,7 +13,6 @@ import {
 } from './constants';
 
 const store = new Store;
-const errorMessage = new ErrorMessage();
 
 export default class QueryCreator {
 
@@ -22,19 +21,19 @@ export default class QueryCreator {
     
     if (e.target.dataset.category === CATEGORY_SOURCES) {
       if (!state.sources) {
-        errorMessage.createError(ERROR_MESSAGE_CHOOSE);
+        renderError(ERROR_MESSAGE_CHOOSE);
       } else {
         NewsApp.getNews(`sources=${state.sources}`);
       }
     } else if (e.target.dataset.category === CATEGORY_QUERY){
       if (!state.query) {
-        errorMessage.createError(ERROR_MESSAGE_ENTER);
+        renderError(ERROR_MESSAGE_ENTER);
       } else {
         NewsApp.getNews(`q=${state.query}`);
       }
     } else {
       if (!state.activeFilters) {
-        errorMessage.createError(ERROR_MESSAGE_CHOOSE);
+        renderError(ERROR_MESSAGE_CHOOSE);
       } else {
         const categoryNames = Object.entries(state.activeFilters)
       .map((entry) => {
