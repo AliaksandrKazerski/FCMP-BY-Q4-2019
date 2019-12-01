@@ -6,8 +6,6 @@ const passport = require('passport');
 
 const User = require('../model/user');
 
-
-
 router.post('/register', (req, res, next) => {
   const {name, email, password} = req.body;
   User
