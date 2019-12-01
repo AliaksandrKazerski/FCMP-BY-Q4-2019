@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const newsRouts = require('./api/routes/news');
+
+mongoose.connect('mongodb://localhost:27017/frontcamp', {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
