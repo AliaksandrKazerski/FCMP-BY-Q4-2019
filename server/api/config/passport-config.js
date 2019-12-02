@@ -12,7 +12,7 @@ module.exports = function(passport) {
           if(!user) {
             return done(null, false, {message: 'That email is not registred'});
           }
-          
+
           bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) throw err;
 
@@ -36,4 +36,4 @@ module.exports = function(passport) {
       done(err, user);
     });
   });
-}
+};
