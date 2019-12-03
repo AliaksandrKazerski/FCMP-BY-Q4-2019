@@ -7,9 +7,11 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const newsRouts = require('./api/routes/news');
-const userRouts = require('./api/routes/user');
+// const userRouts = require('./api/routes/user-local'); // for passport-local
+const userRouts = require('./api/routes/user-facebook');
 
-require('./api/config/passport-config')(passport);
+// require('./api/config/passport-local-config')(passport); // for passport-local
+require('./api/config/passport-facebook-config')(passport);
 
 mongoose.connect(
   'mongodb://localhost:27017/frontcamp', 
