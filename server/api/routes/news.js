@@ -26,12 +26,12 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const {
-    category, 
-    country, 
-    description, 
-    id, 
-    language, 
-    name, 
+    category,
+    country,
+    description,
+    id,
+    language,
+    name,
     url
   } = req.body
   const product = new News({
@@ -81,7 +81,6 @@ router.patch('/:newsId', (req, res, next) => {
   for(const ops of req.body) {   // we need pass request with body like this [{"propName": "url", "value": "onliner.by"}]
     updateOps[ops.propName] = ops.value;
   }
-  console.log(updateOps);
   News
     .update({_id: req.params.newsId}, {$set: updateOps})
     .exec()
